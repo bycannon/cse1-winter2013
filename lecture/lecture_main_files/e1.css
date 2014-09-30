@@ -1,0 +1,79 @@
+body {
+    background: url('../img/snow.png') repeat;
+    height: 100%;
+}
+
+h1 {
+    font: 83px 'LeagueGothicRegular', Arial, sans-serif;
+    letter-spacing: 1px;
+    text-align: center;
+    text-shadow: 0px 2px 3px #fff;
+    margin-bottom: 0;
+}
+
+h2 {
+    font: 30px 'Sorts Mill Goudy', serif;
+    margin-top: 0;
+    text-align: center;
+}
+
+h3 {
+    font: 42px 'LeagueGothicRegular', Arial, sans-serif;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+h4 {
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+h5 {
+    font-size: 15px;
+    font-weight: normal;
+}
+
+ol {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+ol li {
+    margin-bottom: 15px;
+}
+
+.container-fluid {
+    margin-top: 0px;
+}
+
+#content {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+#instructors {
+    font-size: 1.15em;
+}
+
+#recaps p {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#lectures ul {
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+#lectures > li {
+    list-style: none !important;
+    margin-bottom: 20px;
+}
+
+#lectures ul li {
+    font-weight: normal;
+    font-size: 14px;
+    margin-bottom: 2px;
+}

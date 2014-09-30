@@ -1,0 +1,941 @@
+.wsj-videoplayer{
+	color:#FFFFFF;
+	font-size:14px;
+	font-family:Tahoma, Geneva, sans-serif;
+	/* position:relative; */
+	background:#CCC;
+	overflow:hidden;
+}
+
+.getFlash{
+	width:100%;
+	text-align:center;
+	position:absolute;
+	top:30%;
+	color:#FFF;
+}
+
+.wsjvideo-video-player video::-webkit-media-controls {
+  display:none !important;
+}
+
+.wsjvideo-player, .wsjvideo-controls {
+	position: relative;
+}
+.wsjvideo-timer {
+	cursor: default;
+}
+.wsjvideo-buffer {
+	width: 0px;
+}
+/* <video> */
+.wsjvideo-player video {
+	position: relative;
+	z-index: 10;
+}
+/* <audio> */
+.wsjvideo-player.audio-player {
+	width: 500px;
+}
+.wsjvideo-player.audio-player audio {
+	display: none;
+}
+/* Captions and Transcript */
+.wsjvideo-transcript {	
+	clear: both;
+	display: none;
+	
+	overflow: auto;
+	height: 15em;
+}
+.wsjvideo-transcript-button {
+	display: none;
+}
+/* 
+ * Show the timings in square brackets before each "subtitle" in the transcript.
+ * Borrowed and adapted from Bruce Lawson's “Accessible HTML5 Video with JavaScripted captions”
+ * http://dev.opera.com/articles/view/accessible-html5-video-with-javascripted-captions/
+ */
+.wsjvideo-transcript span {
+	display: block;
+	float: left;
+	width: 100%;
+	line-height: 1.5em;
+	
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+.wsjvideo-transcript span:hover {
+	background-color: #cadde7 !important;
+	
+	font-weight: bold;
+}
+.wsjvideo-transcript span:nth-of-type(even) {
+	background-color: #efefef;
+}
+.wsjvideo-transcript [data-begin]:before {
+	display: block;
+	float: left;
+	content: " [" attr(data-begin) "s-" attr(data-end)"s]   ";
+	width: 15%;
+	padding: 0.2em 1.5em 0.2em 0.2em;	
+}
+.wsjvideo-caption {
+	display: none;
+	position: absolute;
+	bottom: 75px;
+	z-index: 12;
+	width: 100%;
+	
+	text-align: center;
+}
+.wsjvideo-caption-button {
+	display: none;
+}
+.wsjvideo-caption-selector {
+	position: absolute;
+	display: none;
+	width: 170px;
+	padding: 5px;
+	height: 75px;
+	margin-bottom: 10px;
+	overflow: auto;
+	
+	background-color: #000;
+	border: 3px solid #fff;
+
+	z-index: 3;
+	
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	
+	-moz-box-shadow: 0px 1px 5px #000;
+	-webkit-box-shadow: 0px 1px 5px #000;
+	box-shadow: 0px 1px 5px #000;
+}
+.wsjvideo-caption-selector label {
+	display: block;
+	
+	font-weight: bold;
+	color: #fff;
+}
+.wsjvideo-caption-selector ul, .wsjvideo-caption-selector li {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+/* Fullscreen Mode */
+.fullscreen-video {
+	position: fixed !important;
+	top: 0px;
+	left: 0px;
+	z-index: 99999 !important;
+	
+	background-color: #000;
+}
+.wsjvideo-controls.fullscreen-controls {
+	position: fixed !important;
+	z-index: 2147483647 !important;
+}
+/* Loading */
+.show-loading .loading-media {
+	visibility: visible;
+}
+.loading-media {
+	visibility: hidden;
+	
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 11; 
+	width: 20px;
+	height: 20px;
+	margin-top: -10px;
+	margin-left: -10px;
+	
+	background-color: #000;
+	border: 5px solid #fff;
+	border-top: 5px solid rgba(0,0,0,0);
+	border-left: 5px solid rgba(0,0,0,0);
+	border-radius: 20px;
+	
+	animation: spin 1s infinite linear;
+	-o-animation: spin 1s infinite linear;
+	-moz-animation: spin 1s infinite linear;
+	-webkit-animation: spin 1s infinite linear;
+}
+
+@-o-keyframes spin {
+	0% { -o-transform:rotate(0deg); }
+	100% { -o-transform:rotate(360deg); }
+}
+@-ms-keyframes spin {
+	0% { -ms-transform:rotate(0deg); }
+	100% { -ms-transform:rotate(360deg); }
+}
+@-moz-keyframes spin {
+	0% { -moz-transform:rotate(0deg); }
+	100% { -moz-transform:rotate(360deg); }
+}
+@-webkit-keyframes spin {
+	0% { -webkit-transform:rotate(0deg); }
+	100% { -webkit-transform:rotate(360deg); }
+}
+@keyframes spin {
+	0% { transform:rotate(0deg); }
+	100% { transform:rotate(360deg); }
+}
+
+/* Controls overlay while loading */
+.show-loading:after {
+	content: ' ';
+	position: absolute;
+	top: -2px; /* Slider handle goes above */
+	padding-bottom: 2px;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	
+	background: #000;
+	opacity: 0.9;
+}
+
+/* Styles needed for the jQuery UI slider
+ * We're declaring these so we don't have to use jQuery UI's stylesheet
+ */
+a.ui-slider-handle {
+	position: absolute;
+	display: block;
+	margin-left: -0.6em;
+	z-index: 2;
+	cursor: default;
+	outline: none;
+}
+.ui-slider {
+	position: relative;
+}
+.ui-slider-range {
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	bottom: 0;
+	border: none;
+	z-index: 1;
+}
+
+/* END OF BASE PLAYER CSS */
+
+html, body{
+	margin:0;
+	padding:0;	
+}
+
+.wsjvideo-video-player {
+	cursor:pointer;
+	}
+.wsjvideo-video-play, .wsjvideo-volume-button {
+	cursor: pointer;
+}
+.wsjvideo-video-timer {
+	cursor: default;
+}
+
+.wsjvideo-video-player.simpledark {
+	float: left;
+	position: relative;
+	font-family: Arial, Helvetica, sans-serif;
+	background: #000000;
+	height:100%;
+	width:100%;
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-video-controls {
+	position: absolute;
+	bottom:0;
+	padding: 5px 0;
+	float: left;
+	clear: both;
+	width: 100%;
+	background: #000000;
+	/*
+	z-index:2147483647;
+	  display:none; */
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-video-play, .wsjvideo-video-player.simpledark .wsjvideo-video-seek, .wsjvideo-video-player.simpledark .wsjvideo-volume-box, .wsjvideo-video-timer {
+	float: left;
+}
+
+/* play, pause */
+.wsjvideo-video-player.simpledark .wsjvideo-video-play {
+	display: block;
+	width: 22px;
+	height: 22px;
+	margin-right: 15px;
+	margin-left:5px;
+	background: url(play-icon.png) no-repeat;	
+	
+	opacity: 0.7;
+	
+	-moz-transition: all 0.2s ease-in-out; /* Firefox */
+	-webkit-transition: all 0.2s ease-in-out; /* Safari and Chrome */
+	-o-transition: all 0.2s ease-in-out;  /* Opera */
+	transition: all 0.2s ease-in-out; 
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-paused-button {
+	background: url(pause-icon.png) no-repeat;
+}
+
+
+.wsjvideo-video-player.simpledark video {
+	float: left;
+}
+
+
+.wsjvideo-video-player.simpledark .wsjvideo-video-play:hover {	
+    opacity: 1;
+}
+
+/* seek */
+.wsjvideo-video-player.simpledark .wsjvideo-video-seek {
+	position:relative;		
+	height: 6px;
+	margin-top: 8px;	
+	background: #535353;
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-video-seek .ui-slider-handle {
+	width: 6px;
+	height: 18px;
+	top: -6px;
+	margin:0px;
+	background-color:#999999;
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-video-seek .ui-slider-handle.ui-state-hover {
+	background: #fff;
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-video-seek .ui-slider-range {
+	-moz-border-radius:1px;
+	-webkit-border-radius:1px;
+	border-radius:1px;
+	background: #05923F;
+}
+
+
+/* timer */
+.wsjvideo-video-player.simpledark .wsjvideo-video-timer {
+	margin-top: 5px;
+	margin-left: 10px;
+	color: #999;
+	font-weight: bold;
+}
+
+/* volume */
+.wsjvideo-video-player.simpledark .wsjvideo-volume-box {
+	position: absolute;
+	bottom: 0px;
+	right: -10px;
+	overflow: hidden;
+	width: 20px;
+	height: 30px;
+	color: #fff;
+	padding: 0px 10px;
+	z-index: 20;
+	
+	-moz-transition: all 0.1s ease-in-out; /* Firefox */
+	-webkit-transition: all 0.1s ease-in-out; /* Safari and Chrome */
+	-o-transition: all 0.2s ease-in-out;  /* Opera */
+	transition: all 0.1s ease-in-out; 
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-box:hover {	
+	height: 135px;
+	padding-top: 5px;
+}
+
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-box:hover .wsjvideo-volume-slider {
+	position: relative;
+	visibility: visible;
+	opacity: 1;
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-slider {	
+	position: relative;
+	height: 100px;
+	width: 7px;
+	left: -4px;
+	
+	visiblity: hidden;
+	opacity: 0;
+	
+	border: 1px solid #444;
+
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+	border-radius:15px;
+	
+	background: #535353;
+	background-image: -moz-linear-gradient(top, #535353, #333333);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #535353),color-stop(1, #333333));
+	
+	box-shadow: inset 0 3px 3px #333333;
+	
+	-moz-transition: all 0.1s ease-in-out; /* Firefox */
+	-webkit-transition: all 0.1s ease-in-out; /* Safari and Chrome */
+	-o-transition: all 0.1s ease-in-out;  /* Opera */
+	transition: all 0.1s ease-in-out; 
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-slider .ui-slider-handle {
+	width: 12px;
+	height: 12px;
+	left: -4px;
+	margin-bottom:-0.6em;
+	margin-left:0;
+	border: 1px solid #333;	
+
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;	
+	
+	background: #e6e6e6;
+	background-image: -moz-linear-gradient(top, #e6e6e6, #d5d5d5);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #e6e6e6),color-stop(1, #d5d5d5));
+	
+	box-shadow: inset 0 3px 3px #d5d5d5;	
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-slider .ui-slider-handle.ui-state-hover {
+	background: #fff;
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-slider .ui-slider-range {
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+	border-radius:15px;
+	
+	background: #e6e6e6;
+	background-image: -moz-linear-gradient(top, #e6e6e6, #d5d5d5);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #e6e6e6),color-stop(1, #d5d5d5));
+	
+	box-shadow: inset 0 3px 3px #d5d5d5;
+}
+
+/* volume button */
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-button {
+	position: absolute;
+	bottom: 7px;
+	right:15px;
+	display: block;
+	height:15px;
+	width:20px;
+	background: url(volume-full-icon.png) no-repeat;
+	text-indent: -9999px;
+	opacity: 0.8;
+	margin-right:5px;
+}
+
+/* Fullscreen Mode */
+.wsjvideo-video-controls .fullscreen-controls {	
+	left: 0px;
+	bottom: 0px;
+}
+.wsjvideo-video-controls .wsjvideo-fullscreen-button  {
+	background-image: url(access-exit-fullscreen.png), url(access-fullscreen.png);
+}
+
+.wsjvideo-fullscreen-button {
+	float: left;
+	height:15px;
+	width:20px;
+	display:block;
+	margin-left:10px;
+	position:relative;
+	top:5px;
+	cursor:pointer;
+}
+
+/* chromecast */
+
+.wsjvideo-video-controls .wsjvideo-chromecast  {
+	background-image: url(remote.png), url(remote.png);
+}
+
+.wsjvideo-chromecast {
+	float: left;
+	height:15px;
+	width:20px;
+	display:block;
+	margin-left:10px;
+	position:relative;
+	top:5px;
+	cursor:pointer;
+	text-indent: -9999px;
+	overflow:hidden;
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-button:hover {
+	opacity: 1;
+}
+
+.wsjvideo-video-player.simpledark .wsjvideo-volume-mute {
+	background: url(volume-mute-icon.png) no-repeat;
+}
+
+
+/* Start of smalldark child theme */
+
+.wsjvideo-video-player.smalldark {
+	padding: 0px;
+}
+
+.wsjvideo-video-player.smalldark video:hover + .wsjvideo-video-controls {
+	visibility: visible;
+	opacity: 0.7;
+}
+
+.wsjvideo-video-player.smalldark .wsjvideo-video-controls:hover {
+	visibility: visible;
+	opacity: 0.7;
+}
+
+.wsjvideo-video-player.smalldark .wsjvideo-video-controls {
+	position: absolute;
+	top: 150px;
+	left: 80px;
+	
+	padding: 10px;
+	
+	border: 1px solid #2E2E2E;
+	
+	-moz-border-radius: 5px; /* FF1+ */
+	-webkit-border-radius: 5px; /* Saf3+, Chrome */
+	border-radius: 5px; /* Opera 10.5, IE 9 */
+	
+	background: #000000;
+	background-image: -moz-linear-gradient(top, #313131, #000000); /* FF3.6 */
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #313131),color-stop(1, #000000)); /* Saf4+, Chrome */
+	
+	opacity: 0;
+	visibility: hidden;
+	
+	box-shadow: inset 0 15px 35px #535353;
+	
+	-moz-transition: all 0.1s ease-in-out; /* Firefox */
+	-webkit-transition: all 0.1s ease-in-out; /* Safari and Chrome */
+	-o-transition: all 0.1s ease-in-out;  /* Opera */
+	transition: all 0.1s ease-in-out; 
+}
+
+.wsjvideo-video-player.smalldark .wsjvideo-video-seek {
+	width: 200px;
+}
+
+.wsjvideo-video-player.smalldark .wsjvideo-volume-box {
+	bottom: 10px;
+	
+}
+
+.wsjvideo-video-player.smalldark .wsjvideo-volume-box:hover {	
+	height: 85px;	
+}
+
+.wsjvideo-video-player.smalldark .wsjvideo-volume-slider {
+	height: 50px;
+}
+
+/* needed jquery ui styles
+ * using these, we don't depend on jQuery UI's stylsheet
+ */
+.ui-slider-handle {
+	position: absolute;
+	z-index: 2;
+	display: block;
+	margin-left:-0.6em;
+	cursor: default;
+	outline: none;
+}
+
+.ui-slider-range {
+	display:block;
+	width:100%;	
+	height:100%;
+	left:0;
+	bottom: 0;
+	border:0 none;
+	position:absolute;
+	z-index:1;
+}
+
+#chromeDisplay{
+	position:absolute;
+	overflow:hidden;
+	z-index:3;
+	display:none;
+	background:#000000;
+	height:100%;
+	width:100%;
+}
+
+.playlist{
+	position:absolute;
+	overflow:hidden;
+	z-index:4;
+	display:none;
+	background:#000000;
+	height:100%;
+	width:100%;
+	left:0;
+	background: #000000 url(./loading.gif) no-repeat center center;
+}
+
+.buffering{
+	position:absolute;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+	top:40%;
+	height:76px;
+	width:76px;
+	background: url(./loader.gif) no-repeat center center;
+	z-index:1000;
+	display:none;
+}
+
+.playlist ul.thumb-grid{
+	height:100%;
+	width:100%;
+	padding:0;
+	margin:0;
+}
+
+.playlist ul.thumb-grid li {
+	float: left;
+	width: 30%;
+	margin: 0 5% 5% 0;
+	list-style:none;
+	position:relative;
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+	filter: dropshadow(color=#000000, offx=1, offy=1);
+	padding:0;
+	list-style:none;
+	line-height:1em;
+}
+
+.playlist ul.thumb-grid li.small {
+	width: 100%;
+	height:100%;
+	margin:0;
+	list-style:none;
+	position:relative; 
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+	filter: dropshadow(color=#000000, offx=1, offy=1);
+	padding:0;
+	list-style:none;
+	line-height:1em;
+}
+
+.playlist ul.thumb-grid li:nth-child(3n) {
+	margin-right: 0;
+}
+
+.playlist ul.thumb-grid li a img {
+	width: 100%;
+	height:100%;
+	border:#606060 1px solid;
+}	
+
+.playlistDescription{
+	color:#FFFFFF;
+	font-family:Arial, Helvetica, sans-serif;
+	width:100%;
+	height:100%;
+	padding:1px;
+	text-align:center;
+	position:absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	cursor:pointer;
+	font-size:10px;
+
+}
+.playlistDescription div{
+	margin:10px 5px;
+}
+
+.vidThumb{
+	cursor:pointer;	
+	cursor:pointer;
+	position:relative;
+	display:block;
+}
+
+.vidThumb:HOVER .videoHint_80{
+	background-position:0 -80px;
+}
+
+.vidThumb:HOVER .videoHint_50{
+	background-position:0 -50px;
+}
+
+.vidThumb:HOVER .videoHint{
+	background-position:0 -43px;
+}
+
+.videoHint {
+    background: url("play_btn.png") no-repeat scroll 0 0 transparent;
+    bottom: 10px;
+    display: block;
+    height: 43px;
+    left: 10px;
+    position: absolute;
+    text-indent: -9999px;
+    width: 88px;
+	overflow:hidden;
+}
+
+
+.videoHint_50 {
+    background: url("play_btn_50.png") no-repeat scroll 0 0 transparent;
+    bottom: 10px;
+    display: block;
+    height: 50px;
+    left: 10px;
+    position: absolute;
+    text-indent: -9999px;
+    width: 50px;
+	overflow:hidden;
+}
+
+.videoHint_80 {
+    background: url("play_btn_80.png") no-repeat scroll 0 0 transparent;
+    bottom: 10px;
+    display: block;
+    height: 80px;
+    left: 10px;
+    position: absolute;
+    text-indent: -9999px;
+    width: 80px;
+	overflow:hidden;
+}
+
+#countdown{
+	font-size:20px;
+	font-weight:bold;
+	width:100%;
+	height:100%;
+}
+
+#countdown p{
+	line-height:150%; 
+	font-family:Verdana, Geneva, sans-serif; 
+	position:absolute; 
+	top:30%; 
+	text-align:center; 
+	color:#FFFFFF;
+}
+
+.endScreen {
+	position: relative;
+	display: block;
+}
+
+.endScreen ul {
+	position: absolute;
+	top: 0;
+	left: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	 /* font-size: 0; 
+	background: #000;*/
+}
+
+.endScreen ul li {
+	position: absolute;
+	display: block;
+	margin: 0;
+	padding: 0;
+	-webkit-perspective: 600px;
+	-moz-perspective: 600px;
+	-ms-perspective: 600px;
+	-o-perspective: 600px;
+	perspective: 600px;
+}
+
+.endScreen ul li .footer{
+	font-size: 100%;
+	color:#FFF;
+	background:rgba(0,0,0,0.7);
+	position:absolute;
+	bottom:0;
+	left: 0;
+    right: 0;
+	padding-top:3px;
+	height:19px;
+	z-index:2;
+	font-family:"Open Sans", Arial, sans-serif;
+	font-size:14px;
+	cursor:pointer;
+	width:100%;
+}
+
+.endScreen ul li #timer{
+	text-transform:uppercase;
+	text-align:left;
+	padding-left:5px;
+}
+
+.endScreen ul li #timer span{
+	margin-top:4px;
+}
+
+.endScreen ul li .replay{
+	background-image:url(../imgs/replay.png);
+	background-repeat:no-repeat;
+	background-position: 5px 3px;
+}
+
+.endScreen ul li.btn{
+	cursor:pointer;
+}
+
+.endScreen ul li.countdown-content{
+	background:rgb(0,0,0);
+    background: transparent\9;
+    background:rgba(0,0,0,0.3);
+}
+
+
+.endscreen-title {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:20px;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	padding:5px;
+}
+
+
+.endScreen ul li.loading .endScreen-item-wrap {
+	background: url(./loading.gif) no-repeat center center black;
+}
+
+.endScreen ul li .endScreen-item-wrap {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.endScreen ul li .endScreen-item-thumb {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.vcenter{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	vertical-align: top;
+}
+
+.vcenter:before{
+	content: "";
+	display: inline-block;
+	vertical-align: top;
+	height: 100%;
+}
+
+.vcenter > *{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.endScreen-shadow{
+	position: relative;
+	max-width: 800px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.endScreen-shadow:before{
+	content: "";
+	display: block;
+	width: 100%;
+	height: 30px;
+	position: absolute;
+	bottom: -30px;
+	left: 0;
+}
+
+p.endscreen-title{
+	width:auto;
+	text-align:center;
+	position:relative;
+	top:auto;
+	color:#FFF;
+}
+
+.endScreen li .hover-content {
+	position: absolute;
+	z-index: 1;
+	opacity: 0;
+	text-align: center;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.75);
+	-webkit-transition: opacity 150ms ease-out;
+	-moz-transition: opacity 150ms ease-out;
+	transition: opacity 150ms ease-out;
+	cursor:pointer;
+}
+.endScreen li .hover-content a {
+	color: #ef4135;
+	text-decoration: none;
+}
+.endScreen li .hover-content a:hover {
+	text-decoration: underline;
+}
+.endScreen li .hover-content button {
+	margin: 10px 0;
+	padding: 0.65em 1em;
+	line-height: 1;
+	outline: none;
+	text-transform: uppercase;
+	cursor: pointer;
+	color: #fff;
+	border: none;
+	background: #ef4135;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-transition: background 150ms ease-out;
+	-moz-transition: background 150ms ease-out;
+	transition: background 150ms ease-out;
+}
+.endScreen li .hover-content button:hover {
+	background: #FF6600;
+}
+.endScreen li:hover .hover-content {
+	opacity: 1;
+}

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Tonight's Programming | Understanding Computers and the Internet</title>
+        <link rel="stylesheet" href="19-programming_files/bootstrap.css">
+        <link rel="stylesheet" href="19-programming_files/bootstrap-responsive.css">
+        <link rel="stylesheet" href="19-programming_files/e1.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row-fluid">
+                <div id="sidebar" class="span2">
+                    <ul id="toc"><li><a href="http://cse1.net/recaps/1-powerup.html">Power Up</a></li><li><a href="http://cse1.net/recaps/2-binary.html">Binary, ASCII, and Everything in Bit-ween</a></li><li><a href="http://cse1.net/recaps/3-cpu.html">C-3PU, Human-Processing Relations</a></li><li><a href="http://cse1.net/recaps/4-memory.html">Thanks for the Memory</a></li><li><a href="http://cse1.net/recaps/6-internet.html">Project Interweb: Make it Network</a></li><li><a href="http://cse1.net/recaps/7-domains.html">Eminent Domain Names</a></li><li><a href="http://cse1.net/recaps/9-protocols.html">Protocol Me, Maybe</a></li><li><a href="http://cse1.net/recaps/10-email.html">Snail Mail</a></li><li><a href="http://cse1.net/recaps/11-tcpip.html">Manual Transmission</a></li><li><a href="http://cse1.net/recaps/12-graphics.html">Picture This</a></li><li><a href="http://cse1.net/recaps/13-av.html">A/V Club</a></li><li><a href="http://cse1.net/recaps/14-onlinesec.html">Safety .net</a></li><li><a href="http://cse1.net/recaps/15-datasec.html">Security Blanket</a></li><li><a href="http://cse1.net/recaps/16-privacy.html">Private Eye</a></li><li><a href="http://cse1.net/recaps/17-design.html">School of Design</a></li><li><a href="http://cse1.net/recaps/18-html.html">A Web of Development</a></li><li><a href="http://cse1.net/recaps/19-programming.html">Tonight's Programming</a></li></ul>
+                </div>
+                <div id="main" class="span10">
+                    <div class="page-header">
+    <h1>Chapter 19 <small>Tonight's Programming</small></h1>
+</div>
+
+
+<p>Last time, we saw how we could make static web pages using HTML and CSS. Now, let's see how we can actually make those pages <em>do</em> something!</p>
+
+<h2>Programming</h2>
+
+<p><strong>Programming</strong> is how we get computers to do our bidding. Just kidding, but not really. A computer <strong>program</strong>
+ is simply a set of specific instructions that a computer will dutifully
+ execute. We'll need to be very specific in our instructions, which can 
+be a challenge! Our computer will always do exactly what we tell it to 
+do, but it isn't always obvious what exactly we should tell our 
+computer.</p>
+
+<p>We'll first take a look at a programming language called <a href="http://scratch.mit.edu/">Scratch</a>. Using Scratch, we can drag and drop different constructs to create a program.</p>
+
+<p>Once we open up Scratch, we can see a single cat <strong>sprite</strong>, which is simply a character or object that we can manipulate. The sprite is placed on a <strong>scene</strong>, which represents our two-dimensional world. We can attach <strong>scripts</strong>,
+ or sets of instructions, to both sprites and the scene. Let's take a 
+look at the differnet components that we can use in a script.</p>
+
+<ul>
+<li><p><strong>Statements</strong> are things that we can <em>do</em>. For example, statements might include "Say hello," "turn to the right," and "pause for 3 seconds."</p></li>
+<li><p><strong>Boolean expressions</strong> are questions that are 
+either true or false. In Scratch, some conditions include "Is this 
+sprite touching the mouse?" and "Is the mouse clicked?"</p></li>
+<li><p>We can also combine Boolean expressions to form expressions like 
+"Is the mouse clicked or is the space bar pressed?" and "Is the mouse 
+down and is this sprite touching something?"</p></li>
+<li><p>We can use Boolean expressions in <strong>conditions</strong>, 
+which allow us to do different things based on the current state of the 
+world. Much like a choose-your-own-adventure novel (remember those?), 
+our script can branch off depending on whether or not a Boolean 
+expression is true or false. Typically, we'll say "if something is true,
+ do this, else, do that".</p></li>
+<li><p><strong>Loops</strong> allow us to do something more than once. 
+If we wanted our cat to meow three times, we could drag the same 
+statement over three times in a row, but that would be kinda annoying. 
+Instead, we can enclose some sequence of statements that will be run 
+over and over again until some condition is met.</p></li>
+<li><p><strong>Variables</strong> allow us to store information that we 
+can access later. For example, our cat might ask the user what his or 
+her name is. Impressive that Scratch comes with talking cats, right? 
+After the we answer, the cat can remember our answer in a variable that 
+can be used later in the script.</p></li>
+<li><p><strong>Arrays</strong> are lists of variables. If we were making
+ a program to keep track of our shopping list, we could store all the 
+items that we want to buy in an array of <strong>strings</strong>, where a string is simply a sequence of characters (like a word).</p></li>
+</ul>
+
+
+<p>And that's it! Using this small set of constructs, we can create some
+ amazingly complex programs. In Scratch, we can attach scripts to any 
+number of sprites. When we start our program, multiple scripts can be 
+executed at the same time, and we can call each individual script a <strong>thread</strong>.
+ By the way, in Scratch, we'll need to use a special block that says "On
+ green flag clicked" as the starting point for our scripts if we want it
+ to start executing when the user starts our program.</p>
+
+<p>Of course, we might not want all of our scripts to start when the 
+user starts the program. Instead, we might want our scripts to start 
+when a certain <strong>event</strong> occurs. In Scratch, we can define 
+our own events that other sprites can respond to. For example, when we 
+click on a sprite, it might say "Marco" and <strong>broadcast</strong> an event to every other sprite. Sprites that are <strong>listening</strong> for this event can then respond by saying "Polo" (or anything else).</p>
+
+<h2>Javascript</h2>
+
+<p>We can apply the same concepts we just saw in Scratch to other 
+programming languages. Let's take a look at Javascript, which just so 
+happens to be my favorite programming language (surprise!). Since 
+Javascript doesn't feature nice drag-and-drop blocks, we'll have to type
+ out our computer programs. Let's translate a few of the concepts we saw
+ in Scratch to Javascript.</p>
+
+<p>Just like last time, let's start with a simple statement. Where in 
+Scratch we had a "say" block to make a character display some text to 
+the user. In Javascript, we can do the same thing with the <code>alert</code> function:</p>
+
+<pre><code>`alert("Hi there!");
+</code></pre>
+
+<p>Since we don't have a nice yellow block that contains the text we 
+want to say, we'll put our message inside of parentheses instead. Notice
+ how we're also ending our statement with a semicolon, just like we 
+ended all of our CSS rules with a semicolon. When this Javascript code 
+is run, a pop-up message with the text we've specified will be displayed
+ to the user.</p>
+
+<p>Alright, what about variables? In Scratch, we created and modified 
+variables using the red variable block. To create a variable called <code>cats</code> in Javascript, we'd say something like:</p>
+
+<pre><code>var cats = 2;
+</code></pre>
+
+<p>Uh oh, looks like math class at first, but don't worry! The <code>var</code> keyword means that we're creating a brand new variable that doesn't exist yet. Next, we decided to call our variable <code>cats</code>, and it has a value of <code>2</code>.
+ Just like last time, we have a semicolon at the end of our line. 
+Variables aren't limited to just numbers, and we can make a variable 
+equal to a string (which is just a sequence of characters) using quotes:</p>
+
+<pre><code>var name = "Boots";
+</code></pre>
+
+<p>Okay, now that we have variables, let's use them in some conditions. 
+We saw "if-else" blocks in Scratch, so let's translate those to 
+Javascript.</p>
+
+<pre><code>if (cats == 2) {
+    alert('You have two cats!');
+}
+else {
+    alert('You do not have two cats!');
+}
+</code></pre>
+
+<p>Looks pretty similar to what we did in Scratch! First, check out the Boolean expression <code>(cats == 2)</code>. We saw that we can use a single <code>=</code> to set the value of a variable, so we'll use a double <code>==</code> when we want to compare the value of variables. We could have also said <code>(cats &gt; 2)</code> if we wanted to check if the value of the <code>cats</code>
+ variable is more than 2. After our expression, we have curly braces, 
+just like we did in CSS. Inside of the curly braces will be the code 
+that we want to be run if our condition is true. In Scratch, we were 
+able to put blocks inside of the "if" block, so in Javascript, we'll put
+ code inside of these curly braces. After we close the curly braces for 
+the <code>if</code>, we have another set of curly braces for the <code>else</code>.</p>
+
+<p>We can also combine Boolean expressions, just like we did in Scratch:</p>
+
+<pre><code>if (cats == 2 &amp;&amp; name == "Boots")
+</code></pre>
+
+<p>Here, the <code>&amp;&amp;</code> is the same as "and". If we instead wanted to say "or", we would say:</p>
+
+<pre><code>if (cats == 2 || name == "Boots")
+</code></pre>
+
+<p>Finally, let's translate loops from Scratch to Javascript. Remember, 
+we used loops to execute the same Scratch blocks more than once. If we 
+used a "Forever" loop, then the blocks inside of the loop would run... 
+forever! That might not always be the best idea in the world, so we'll 
+want to define some kind of stopping condition for some of the loops we 
+write. In Javascript, we'll define some block of code that will be run 
+over and over again until some condition is no longer true. Here's what 
+that looks like:</p>
+
+<pre><code>var counter = 1;
+while (counter &lt;= 10) {
+    alert(counter);
+    counter = counter + 1;
+}
+</code></pre>
+
+<p>Woah, lots of code, let's break this down line by line. In the first line, we're creating a new variable called <code>counter</code> and setting its value equal to the number <code>1</code>. Next up is our loop: we'd like to run some block of code while the value of the <code>counter</code> variable is less than or equal to 10. Since counter starts off as <code>1</code>,
+ we know this will be true at least once. Then, we have a pair curly 
+braces again, and just like before, these will demarcate what code we'd 
+like to run repeatedly. Inside of the curly braces, we have our old 
+friend <code>alert</code>, which will display the value of the <code>counter</code> variable to the user. Finally, the last line of our loop increments the value of the <code>counter</code> variable. If <code>counter</code> had a value of <code>1</code>, it would have a value of <code>2</code>
+ after this line. Since we're out of lines to execute within the loop, 
+we'll jump back to the top of the loop to run everything again. After 
+one run, or <strong>iteration</strong>, of this loop, our <code>counter</code> variable will be <code>2</code>, which is most definitely less than or equal to <code>10</code>, so it will run again. Eventually, though, our <code>counter</code> will have a value of <code>11</code>, which will cause us to break out of the loop and move on.</p>
+
+<p>Rather than using the <code>while</code> keyword, we can express the same exact thing with the <code>for</code> keyword and fewer lines of code:</p>
+
+<pre><code>for (var counter = 1; counter &lt;= 10; counter++) {
+    alert(counter);
+}
+</code></pre>
+
+<p>Alright, looks like we've compressed our last code snippet down quite a bit. It looks like we're still creating a <code>counter</code> variable that starts off with a value of <code>1</code>, and we're still running this loop until the value of <code>counter</code> exceeds <code>10</code>. That <code>counter++</code> bit is just a shorthand for <code>counter = counter + 1</code>, and it will be run <em>after</em> the contents of the loop. So, this <code>for</code> loop is exactly the same as the <code>while</code> loop above!</p>
+
+<p>Phew! That was a lot of Javascript. Now, let's take a look at how we 
+can actually integrate Javascript into our web page. Just like we had a <code>&lt;style&gt;</code> tag in which we could write some CSS, HTML also gives us a <code>&lt;script&gt;</code>
+ tag in which we can write some Javascript. So, if we wanted to display a
+ pop-up on an HTML page that appeared as soon as the user opened it, we 
+could do something like this:</p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Tommy's Cat Store&lt;/title&gt;
+        &lt;script&gt;
+            alert("We love cats!");
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Tommy's Cat Store&lt;/h1&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="cats.html"&gt;Cats&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;h2&gt;We love cats.&lt;/h2&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Of course, pop-ups are pretty annoying, so I wouldn't recommend <em>actually</em>
+ doing that. Just like it was nice to move all of our CSS into a 
+separate, CSS-only file, we can do the same thing with Javascript. We 
+can also use the <code>&lt;script&gt;</code> tag to specify the location of a Javascript file like this:</p>
+
+<pre><code>&lt;script src="cats.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>Annoyingly, we can't just say <code>&lt;script /&gt;</code> here, but that's okay I guess. We'll get over it.</p>
+
+<p>That's all the Javascript we'll see for now! If you're interested in 
+learning more, there are lots of resources available online. But, the 
+main takeaway here is that the concepts we've covered in Scratch will 
+apply to most any programming language we look at!</p>
+
+<p>Now go forth and make something awesome.</p>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="19-programming_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-36776830-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    
+
+</body></html>

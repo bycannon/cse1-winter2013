@@ -1,0 +1,12 @@
+authentication
+The process of identifying an individual, usually based on a username and password. In security systems, authentication is distinct from authorization , which is the process of giving individuals access to system objects based on their identity. Authentication merely ensures that the individual is who he or she claims to be, but says nothing about the access rights of the individual.
+
+
+Authentication is the process of determining whether someone or something is, in fact, who or what it is declared to be.
+
+authorization
+The process of granting or denying access to a network resource. Most computer security systems are based on a two-step process. The first stage is authentication, which ensures that a user is who he or she claims to be. The second stage is authorization, which allows the user access to various resources based on the user's identity.
+
+
+For a website to remember that you have logged in, it starts something called a session.  It remembers who you are through a set of files called cookies.
+

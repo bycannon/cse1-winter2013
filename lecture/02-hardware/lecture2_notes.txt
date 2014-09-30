@@ -1,0 +1,5 @@
+Virtual Memory
+
+A swap file is located on the hard disk.
+A swap file is treated as RAM.
+You can think of a swap file with a size of 1GB as equivalent to 1GB of RAM (but slower as it is stored on the hard disk)

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html data-cast-api-enabled="true"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<link href="embed-92E525EB_9E4A_4399_817D_8C4E6EF68F93_data/WsjVideoPlayer.css" rel="stylesheet" type="text/css">
+
+<!--
+<script type="text/javascript" src="http://www.google.com/uds?file=ima&v=1&nodependencyload=true"></script>
+<script type="text/javascript" src="https://s0.2mdn.net/instream/html5/ima3.js"></script>
+-->
+
+<script src="embed-92E525EB_9E4A_4399_817D_8C4E6EF68F93_data/jquery_002.js"></script>
+<script type="text/javascript" src="embed-92E525EB_9E4A_4399_817D_8C4E6EF68F93_data/jquery-ui-1.js"></script>
+<script type="text/javascript" src="embed-92E525EB_9E4A_4399_817D_8C4E6EF68F93_data/swfobject.js"></script>
+<script type="text/javascript" src="embed-92E525EB_9E4A_4399_817D_8C4E6EF68F93_data/tracking.js"></script>
+<script type="text/javascript" src="embed-92E525EB_9E4A_4399_817D_8C4E6EF68F93_data/jquery.js"></script>
+<script type="text/javascript" src="embed-92E525EB_9E4A_4399_817D_8C4E6EF68F93_data/wsjvideo.js"></script>
+<style>
+#collapseDiv{
+	height:20px;
+	font-weight:bold;
+	color:#666666;
+	font-size:14px;
+	display:none;
+	font-family:Tahoma, Geneva, sans-serif;
+	padding:5px 0px 10px 0px;
+	margin-bottom:2px;
+	cursor:pointer;
+	border-bottom:#54689E dotted 1px;
+}
+#collapseDiv a{
+	color:#093D72;
+	text-decoration:none;
+}
+#collapseDiv #strapControls{
+	text-align:right;
+	font-size:12px;
+	color:#093D72;
+	width:150px;
+	float:right;
+	display:block;	
+}
+#adContainer {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display:none;
+	z-index:2147483647;
+}
+</style>
+</head>
+<body><div id="collapseDiv"><span id="strapText">News Hub Live</span><span id="strapControls">- HIDE PLAYER</span></div>
+<div style="height: 288px; width: 512px; background-color: rgb(0, 0, 0);" id="videoplayer"><div id="thumbnail_videoplayer_video" style="height: 100%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: 50% 50%; background-image: url(&quot;http://m.wsj.net/video/20100803/073010cookies1/073010cookies1_640x360.jpg&quot;);" class="vidThumb"><div class="videoHint"></div></div></div>
+
+<script language="javascript">
+var vars;
+$(document).ready(function(){
+	vars = getVars();
+	if(vars["guid"] || (vars["type"] && vars["query"])){
+		var parameters = { 
+			autoplay: false,
+			width:$(document).width(),
+			height:$(document).height()
+		};
+		
+		if(vars['strap']){
+			$('#strapText').html(decodeURIComponent((unescape(vars['strap'])+ '').replace(/\+/g, ' ')));	
+		}
+		if(vars['collapse']){
+			if(vars['collapse'] == true){
+				$('#collapseDiv').show();
+				$('#collapseDiv').click(onCollapse);
+				parameters.height = parameters.height - 50;	
+			}
+		}
+		
+		if ("https:" == document.location.protocol) {
+			parameters.api = "/mw2/api-video/";
+			parameters.useHttps = true;
+		}
+		
+		for (var key in vars) {
+			parameters[key] = vars[key];
+		}
+		/*
+		if(getUrlVars()["guid"]){
+			parameters.guid = getUrlVars()["guid"];
+		}else if(getUrlVars()["type"] && getUrlVars()["query"]){ 
+			parameters.type = getUrlVars()["type"];
+			parameters.query = getUrlVars()["query"];
+		}
+		*/
+		$("#adContainer").height(parameters.height - 32);
+		$("#adContainer").width(parameters.width);
+		$("#videoplayer").height(parameters.height);
+		$("#videoplayer").width(parameters.width);
+	  	$("#videoplayer").WSJVideo(parameters); 	
+	}else{
+		$("#videoplayer").append('<p>Missing required parameters.</p>');
+		$("#videoplayer").height($(document).height());
+		$("#videoplayer").width($(document).width());	
+		$("#adContainer").height(parameters.height - 32);
+		$("#adContainer").width(parameters.width);
+	}
+
+});
+
+function onCollapse(evt){
+	$("#videoplayer").remove();
+	try{
+		var mId = "";
+		if(vars["moduleId"]){
+			mId = vars["moduleId"];
+		}
+		//$(window.top)[0].dj.util.Video.stopVideo(mId);
+	}catch(e){}
+	try{
+	var src = $(location).attr('href');
+	if(!window.parent.document.getElementsByClassName) {
+		window.parent.document.getElementsByClassName = function(className) {
+			return this.querySelectorAll("." + className);
+		};
+		Element.prototype.getElementsByClassName = window.parent.document.getElementsByClassName;
+	}
+	var nodeList = window.parent.document.getElementsByClassName("iframeReset");
+	  for (var i = 0, length = nodeList.length; i < length; i++) {
+		 var frameEl = nodeList[i];
+		 if(frameEl.src == document.location.href){
+		 	frameEl.style.height = "50px";
+		 }
+	  }
+	}catch(e){}
+	//$(window.parent).$("iframe[src^='"+src+"']").height(50);
+	//$("#videoplayer").trigger('pause_videoplayer');
+	$('#collapseDiv #strapControls').html('<a href="javascript:parent.location.reload();">+ SHOW PLAYER</a>');
+}
+
+function getVars() { 
+	'use strict';
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		if(value === 'true' || value === '1' || value === 1){
+			value = true;	
+		}else if(value === 'false' || value === '0' || value === 0){
+			value = false; 	
+		}
+        vars[key] = value;
+    });
+    return vars;
+}
+</script>
+</body></html>

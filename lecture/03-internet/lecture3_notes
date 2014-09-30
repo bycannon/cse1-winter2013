@@ -1,0 +1,7 @@
+there are 13 groups of root dns server
+
+url: a way of locating an resource
+uri: a way of uniquely identify an entity
+
+an url can be uri
+an uri is not necessarily a url

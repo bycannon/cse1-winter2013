@@ -1,0 +1,22 @@
+a video has two parts
+video = container + codec
+
+codecs
+a codec is essentially a little program that is responsible for compressing and decompressing a video
+
+types of codecs: h.264, theora, vp8  (these are different types of ways of compressing a video)
+
+container: the way of packaging the video and audio
+
+types of containers:  mov, mp4, avi, ogg, webm
+
+The codec compresses the video.  The container will contain a particular codecs (video, subtitles, audio)
+
+GPU (Graphics Processing Unit)
+Uses Parallelism
+The GPU can run at the same time the computation needed to generate a number of pixels.
+For example, generate all the pixels on the screen at the same time as opposed to a cpu which will have to generate each pixel one after the others.  As the CPU can only do one thing at a time.
+
+(Remember myth busters image drawing example).
+
+

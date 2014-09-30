@@ -1,0 +1,5 @@
+encode:
+1. covert into coded form
+2. the mapping of information into a particular form
+3. convert (information or an instruction) into a particular form
+e.g whenever I see the number 65 it is going to correspond to a capital letter A.
